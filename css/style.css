@@ -1,0 +1,440 @@
+/* ==========================================================
+   BorB · Portal de Certificação em Metodologias Ágeis
+   Estilos compartilhados: login, cadastro e recuperar senha
+   ========================================================== */
+
+:root {
+  --roxo: #7c3aed;
+  --roxo-hover: #6d28d9;
+  --roxo-claro: #a9a4f7;
+  --roxo-base: #5b51c9;
+  --ciano: #22d3ee;
+
+  --fundo: #f7f8fb;
+  --card: #dcdcdc;
+  --campo: #ffffff;
+  --texto: #3a3a40;
+  --texto-suave: #6b6b75;
+  --borda-foco: #7c3aed;
+
+  --erro: #c81e1e;
+  --sucesso: #15803d;
+
+  --raio-card: 24px;
+  --raio-campo: 4px;
+  --sombra-card: 0 8px 24px rgba(30, 20, 60, 0.08);
+
+  --fonte-titulo: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --fonte-texto: "Jost", "Segoe UI", Roboto, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: var(--fonte-texto);
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+a {
+  color: var(--roxo);
+}
+
+/* Acessibilidade: esconde visualmente, mantém para leitor de tela */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Estrutura ---------- */
+
+.pagina {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 16px 40px;
+}
+
+/* ---------- Logo ---------- */
+
+.logo {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  margin-bottom: 6px;
+  text-decoration: none;
+}
+
+.logo__texto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 0.85;
+}
+
+.logo__sub {
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  color: var(--roxo);
+  margin-bottom: 4px;
+}
+
+.logo__nome {
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  font-size: 76px;
+  letter-spacing: 0.01em;
+  background: linear-gradient(180deg, var(--roxo) 10%, #6c7cf0 50%, var(--ciano) 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.logo__icone {
+  width: 78px;
+  height: 78px;
+  margin-bottom: -26px; /* só o ícone encosta no card, como no Figma */
+}
+
+/* ---------- Card ---------- */
+
+.card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--card);
+  border-radius: var(--raio-card);
+  box-shadow: var(--sombra-card);
+  padding: 32px 20px 28px;
+}
+
+.card--largo {
+  max-width: 500px;
+}
+
+.card__titulo {
+  margin: 0 0 22px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.card__descricao {
+  margin: -10px 0 20px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--texto-suave);
+}
+
+/* ---------- Campos ---------- */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Linha "Rótulo: [campo]" do cadastro */
+.campo--linha {
+  display: grid;
+  grid-template-columns: 128px 1fr;
+  align-items: center;
+  column-gap: 12px;
+}
+
+.campo--linha .campo__rotulo {
+  text-align: right;
+}
+
+.campo--linha .campo__erro {
+  grid-column: 2;
+}
+
+.campo__rotulo {
+  font-size: 15px;
+}
+
+.campo__caixa {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.campo__icone {
+  position: absolute;
+  left: 10px;
+  width: 20px;
+  height: 20px;
+  color: var(--texto);
+  pointer-events: none;
+}
+
+.campo__input {
+  width: 100%;
+  height: 34px;
+  padding: 0 12px;
+  border: 1.5px solid transparent;
+  border-radius: var(--raio-campo);
+  background: var(--campo);
+  color: var(--texto);
+  font: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.campo__caixa--icone .campo__input {
+  padding-left: 40px;
+  height: 38px;
+}
+
+.campo__caixa--senha .campo__input {
+  padding-right: 42px;
+}
+
+.campo__input::placeholder {
+  color: #8a8a93;
+}
+
+.campo__input:focus {
+  border-color: var(--borda-foco);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.18);
+}
+
+.campo__input[aria-invalid="true"] {
+  border-color: var(--erro);
+}
+
+.campo__erro {
+  min-height: 0;
+  font-size: 12.5px;
+  color: var(--erro);
+}
+
+.campo__erro:empty {
+  display: none;
+}
+
+/* Botão mostrar/ocultar senha */
+.btn-olho {
+  position: absolute;
+  right: 4px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--texto-suave);
+  cursor: pointer;
+}
+
+.btn-olho:hover {
+  color: var(--roxo);
+}
+
+.btn-olho:focus-visible {
+  outline: 2px solid var(--roxo);
+}
+
+.btn-olho svg {
+  width: 20px;
+  height: 20px;
+}
+
+.btn-olho .icone-ocultar {
+  display: none;
+}
+
+.btn-olho[aria-pressed="true"] .icone-mostrar {
+  display: none;
+}
+
+.btn-olho[aria-pressed="true"] .icone-ocultar {
+  display: block;
+}
+
+/* Checkbox de termos (LGPD) */
+.termos {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13.5px;
+  margin-top: 4px;
+}
+
+.termos input {
+  width: 17px;
+  height: 17px;
+  margin: 1px 0 0;
+  accent-color: var(--roxo);
+  flex-shrink: 0;
+}
+
+.termos-bloco .campo__erro {
+  margin-left: 25px;
+}
+
+/* ---------- Botão principal ---------- */
+
+.btn {
+  align-self: center;
+  min-width: 112px;
+  height: 36px;
+  margin-top: 10px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--roxo);
+  color: #fff;
+  font: inherit;
+  font-size: 17px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.btn:hover {
+  background: var(--roxo-hover);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:focus-visible {
+  outline: 3px solid rgba(124, 58, 237, 0.4);
+  outline-offset: 2px;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+/* ---------- Mensagens ---------- */
+
+.aviso {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.aviso:empty {
+  display: none;
+}
+
+.aviso--sucesso {
+  background: #dcfce7;
+  color: var(--sucesso);
+}
+
+.aviso--erro {
+  background: #fee2e2;
+  color: var(--erro);
+}
+
+.link-secundario {
+  margin-top: 18px;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.link-secundario:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Rodapé ---------- */
+
+.rodape {
+  background: var(--roxo);
+  color: #fff;
+  text-align: center;
+  padding: 10px 16px;
+  font-size: 17px;
+}
+
+.rodape a {
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.rodape a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Responsivo (RNF01) ---------- */
+
+@media (max-width: 540px) {
+  .logo__nome {
+    font-size: 60px;
+  }
+
+  .logo__icone {
+    width: 62px;
+    height: 62px;
+  }
+
+  .card {
+    padding: 30px 16px 24px;
+  }
+
+  /* No celular o rótulo vai para cima do campo */
+  .campo--linha {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+  }
+
+  .campo--linha .campo__rotulo {
+    text-align: left;
+  }
+
+  .campo__input {
+    height: 40px; /* área de toque maior */
+    font-size: 16px; /* evita zoom automático no iOS */
+  }
+
+  .rodape {
+    font-size: 15px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
